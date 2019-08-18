@@ -2,6 +2,9 @@
 
 namespace Tsc\CatStorageSystem;
 
+include_once "../phpunit.php";
+
+
 use PHPUnit\Framework\TestCase;
 
 class FileInterfaceTest extends TestCase {

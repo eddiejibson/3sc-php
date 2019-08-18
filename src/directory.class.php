@@ -1,10 +1,11 @@
 <?php
+namespace Tsc\CatStorageSystem;
 
 class Directory implements \Tsc\CatStorageSystem\DirectoryInterface {
 
     protected $dir;
 
-    public function __construct($dir) {
+    public function __construct(string $dir) {
         if (!file_exists($path) || !is_dir($dir)) throw new Error("Directory does not exist or it does and it's just not a directory");
         $this->dir = $dir;
     }

@@ -1,4 +1,5 @@
 <?php
+namespace Tsc\CatStorageSystem;
 
 include_once "FileInterface.php";
 
@@ -8,7 +9,7 @@ class File implements \Tsc\CatStorageSystem\FileInterface {
 
     protected $file;
 
-    public function __construct($path) {
+    public function __construct(string $path) {
         if (!file_exists($path)) throw new Error("File does not exist");
         $this->file = $path;
     }
