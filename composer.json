@@ -1,0 +1,19 @@
+{
+    "name": "tsc/3sc-php-task",
+    "description": "3 Sided Cube PHP Task",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Tsc\\CatStorageSystem\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tsc\\CatStorageSystem\\Tests\\": "tests/"
+        }
+    }
+}
