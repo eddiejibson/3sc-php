@@ -1,4 +1,5 @@
 <?php
+
 namespace Tsc\CatStorageSystem;
 
 use \DateTimeInterface;
@@ -8,14 +9,14 @@ interface FileInterface
   /**
    * @return string
    */
-  // public function getName();
+  public function getName();
 
   /**
    * @param string $name
    *
    * @return $this
    */
-  // public function setName($name);
+  public function setName(string $name);
 
   /**
    * @return int
@@ -27,7 +28,7 @@ interface FileInterface
    *
    * @return $this
    */
-  // public function setSize($size); //wtf?
+  public function setSize(int $size);
 
   /**
    * @return DateTime
@@ -39,7 +40,8 @@ interface FileInterface
    *
    * @return $this
    */
-  // public function setCreatedTime(DateTimeInterface $created);
+
+  public function setCreatedTime(DateTimeInterface $created);
 
   /**
    * @return DateTimeInterface
@@ -70,4 +72,3 @@ interface FileInterface
    */
   public function getPath();
 }
-

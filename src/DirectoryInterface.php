@@ -16,7 +16,7 @@ interface DirectoryInterface
    *
    * @return $this
    */
-  public function setName($name);
+  public function setName(string $name);
 
   /**
    * @return DateTimeInterface
@@ -40,5 +40,5 @@ interface DirectoryInterface
    *
    * @return $this
    */
-  public function setPath($path);
+  public function setPath(string $path);
 }

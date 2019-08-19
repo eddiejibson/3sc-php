@@ -14,18 +14,11 @@ interface FileSystemInterface
 
   /**
    * @param FileInterface $file
-   *
-   * @return FileInterface
-   */
-  public function updateFile(FileInterface $file);
-
-  /**
-   * @param FileInterface $file
    * @param string $newName
    *
    * @return FileInterface
    */
-  public function renameFile(FileInterface $file, $newName);
+  public function renameFile(FileInterface $file, string $newName);
 
   /**
    * @param FileInterface $file
@@ -36,19 +29,13 @@ interface FileSystemInterface
 
   /**
    * @param DirectoryInterface $directory
-   *
-   * @return DirectoryInterface
-   */
-  public function createRootDirectory(DirectoryInterface $directory);
-
-  /**
-   * @param DirectoryInterface $directory
    * @param DirectoryInterface $parent
    *
    * @return DirectoryInterface
    */
   public function createDirectory(
-    DirectoryInterface $directory, DirectoryInterface $parent
+    DirectoryInterface $directory,
+    DirectoryInterface $parent
   );
 
   /**
@@ -64,7 +51,7 @@ interface FileSystemInterface
    *
    * @return DirectoryInterface
    */
-  public function renameDirectory(DirectoryInterface $directory, $newName);
+  public function renameDirectory(DirectoryInterface $directory, string $newName);
 
   /**
    * @param DirectoryInterface $directory
