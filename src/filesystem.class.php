@@ -11,8 +11,8 @@ class FileSystem implements FileSystemInterface
 
     public function createFile(\Tsc\CatStorageSystem\FileInterface $file, \Tsc\CatStorageSystem\DirectoryInterface $parent)
     {
-        $file->setParentDirectory($parent); //not really sure if this is what is meant, idk what else i'm meant to do with parent dir
-        return touch($file->getPath()); //i'm guessing this is what is meant??
+        touch($file->getPath()); //not really sure if this is what is meant, idk what else i'm meant to do with parent dir
+        return $file->setParentDirectory($parent); //i'm guessing this is what is meant??
     }
     public function deleteFile(\Tsc\CatStorageSystem\FileInterface $file)
     {
@@ -23,7 +23,8 @@ class FileSystem implements FileSystemInterface
     public function createDirectory(\Tsc\CatStorageSystem\DirectoryInterface $directory, \Tsc\CatStorageSystem\DirectoryInterface $parent = null)
     {
         $full = isset($parent) ? $parent->getPath() . "/" . $directory->getName() : $directory->getPath() . "/";
-        return mkdir($full, 077, true);
+        if (!file_exists($full)) mkdir($full, 0777);
+        return true;
     }
 
     public function deleteDirectory(\Tsc\CatStorageSystem\DirectoryInterface $directory)
@@ -46,7 +47,9 @@ class FileSystem implements FileSystemInterface
 
     public function renameDirectory(\Tsc\CatStorageSystem\DirectoryInterface $directory, string $newName)
     {
-        return rename($directory->getPath(), dirname($directory->getPath()) . "/" . $newName);
+        $newPath = dirname($directory->getPath()) . "/" . $newName;
+        rename($directory->getPath(), $newPath);
+        return $directory->setPath($newPath);
     }
 
     private function getDirectoryArr(string $path)

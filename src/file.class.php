@@ -9,13 +9,12 @@ use \DateTimeInterface;
 class File implements \Tsc\CatStorageSystem\FileInterface
 {
 
-    protected $file;
+    public $file;
     protected $size;
     public $name;
 
     public function __construct(string $path)
     {
-        if (!file_exists($path)) throw new Error("File does not exist");
         $this->file = $path;
     }
 
@@ -36,7 +35,7 @@ class File implements \Tsc\CatStorageSystem\FileInterface
 
     public function getSize()
     {
-        return $this->size ?? filesize("../images/$this->file");
+        return $this->size ?? filesize($this->file);
     }
 
     public function getModifiedTime()
@@ -58,7 +57,7 @@ class File implements \Tsc\CatStorageSystem\FileInterface
 
     public function getPath()
     {
-        return realpath($this->file);
+        return $this->file;
     }
 
     public function setModifiedTime(DateTimeInterface $modified)
@@ -68,7 +67,7 @@ class File implements \Tsc\CatStorageSystem\FileInterface
 
     public function setParentDirectory(DirectoryInterface $parent)
     { //will add var types later, just testing rn
-        return rename($this->file, $parent->getPath() . "/$this->file"); //Guessing you mean move to within a directory (thus setting a parent directory)??
+        return rename($this->file, $parent->getPath() . "/" . basename($this->file)); //Guessing you mean move to within a directory (thus setting a parent directory)??
     }
 
     public function getParentDirectory()

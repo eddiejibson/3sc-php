@@ -45,16 +45,16 @@ class Directory implements \Tsc\CatStorageSystem\DirectoryInterface
 
     private function ensureCreated()
     { //no longer in construct because apparently via this class you can create a directory that doesn't exist
-        if (!file_exists($this->dir) || !is_dir($this->dir)) throw new \Error("Directory does not exist or it does and it's just not a directory");
+        if (!file_exists($this->dir) || !is_dir($this->dir)) {
+            throw new \Error("Directory $this->dir does not exist or it does and it's just not a directory");
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    public function setPath(string $path)
-    { //again assuming this means move the directory thus changing the path and have it set?
-        $res = true;
-        if ($this->ensureCreated($this->dir)) {
-            $res = rename($this->dir, $path); //Guessing you mean move to within a directory (thus setting a parent directory)??
-        }
-        $this->dir = $path;
-        return $res;
+    public function setPath(string $path, bool $forceMove = false)
+    { //assuming this doesnt mean rename/move hte file as that's done in the fs
+        return $this->dir = $path;
     }
 }

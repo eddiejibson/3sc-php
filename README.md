@@ -1,1 +1,1 @@
-A lot of this I wasn't sure if what I was doing was what was asked, for example with functions like `setSize` I wasn't really quite sure what you wanted me to do
+Run example: `php example.php`

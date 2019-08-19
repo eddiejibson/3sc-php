@@ -40,5 +40,5 @@ interface DirectoryInterface
    *
    * @return $this
    */
-  public function setPath(string $path);
+  public function setPath(string $path, bool $forceMove = false);
 }
