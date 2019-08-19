@@ -20,9 +20,10 @@ class FileSystem implements FileSystemInterface
     }
 
     //guessing directory
-    public function createDirectory(\Tsc\CatStorageSystem\DirectoryInterface $directory, \Tsc\CatStorageSystem\DirectoryInterface $parent)
+    public function createDirectory(\Tsc\CatStorageSystem\DirectoryInterface $directory, \Tsc\CatStorageSystem\DirectoryInterface $parent = null)
     {
-        return mkdir($parent->getPath() . "/" . $directory->getName());
+        $full = isset($parent) ? $parent->getPath() . "/" . $directory->getName() : $directory->getPath() . "/";
+        return mkdir($full, 077, true);
     }
 
     public function deleteDirectory(\Tsc\CatStorageSystem\DirectoryInterface $directory)
@@ -50,12 +51,12 @@ class FileSystem implements FileSystemInterface
 
     private function getDirectoryArr(string $path)
     {
-        return glob($path, GLOB_ONLYDIR);
+        return glob(rtrim($path, "/") . "/*", GLOB_ONLYDIR);
     }
 
     private function getAllInDir(string $path)
     {
-        return glob($path . "/*");
+        return glob(rtrim($path, "/") . "/*");
     }
 
     private function getFileArr(string $path)
@@ -90,7 +91,7 @@ class FileSystem implements FileSystemInterface
     public function getDirectories(\Tsc\CatStorageSystem\DirectoryInterface $directory)
     {
         $arr = [];
-        foreach ($this->getDirectoryArr($directory->getPath) as $dir) {
+        foreach ($this->getDirectoryArr($directory->getPath()) as $dir) {
             array_push($arr, new \Tsc\CatStorageSystem\Directory($dir));
         }
         return $arr;
@@ -99,12 +100,9 @@ class FileSystem implements FileSystemInterface
     public function getFiles(\Tsc\CatStorageSystem\DirectoryInterface $directory)
     {
         $arr = [];
-        foreach ($this->getDirectoryArr($directory->getPath) as $file) {
+        foreach ($this->getFileArr($directory->getPath()) as $file) {
             array_push($arr, new \Tsc\CatStorageSystem\File($file));
         }
         return $arr;
     }
 }
-
-$test = new FileSystem();
-var_dump($test->getFiles(new Directory("/Users/mac/Documents")));

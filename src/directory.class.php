@@ -28,8 +28,7 @@ class Directory implements \Tsc\CatStorageSystem\DirectoryInterface
 
     public function getPath()
     {
-        $this->ensureCreated();
-        return realpath($this->dir);
+        return $this->dir ?? dir($this->dir)->path;
     }
 
     public function setCreatedTime(\DateTimeInterface $created)
@@ -39,18 +38,23 @@ class Directory implements \Tsc\CatStorageSystem\DirectoryInterface
 
     public function getCreatedTime()
     {
-        $this->ensureCreated();
-        return $this->created ?? filectime($this->dir);
+        $dt = new \DateTime();
+        $dt->setTimestamp($this->created ?? filectime($this->dir));
+        return $dt;
     }
 
     private function ensureCreated()
     { //no longer in construct because apparently via this class you can create a directory that doesn't exist
-        if (!file_exists($this->dir) || !is_dir($this->dir)) throw new Error("Directory does not exist or it does and it's just not a directory");
+        if (!file_exists($this->dir) || !is_dir($this->dir)) throw new \Error("Directory does not exist or it does and it's just not a directory");
     }
 
     public function setPath(string $path)
     { //again assuming this means move the directory thus changing the path and have it set?
-        $this->ensureCreated();
-        return rename($this->dir, $path); //Guessing you mean move to within a directory (thus setting a parent directory)??
+        $res = true;
+        if ($this->ensureCreated($this->dir)) {
+            $res = rename($this->dir, $path); //Guessing you mean move to within a directory (thus setting a parent directory)??
+        }
+        $this->dir = $path;
+        return $res;
     }
 }

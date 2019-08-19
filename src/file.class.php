@@ -41,7 +41,7 @@ class File implements \Tsc\CatStorageSystem\FileInterface
 
     public function getModifiedTime()
     {
-        $dt = new DateTime();
+        $dt = new \DateTime();
         return $dt->setTimestamp(filemtime($this->file));
     }
 
@@ -52,7 +52,7 @@ class File implements \Tsc\CatStorageSystem\FileInterface
 
     public function getCreatedTime()
     {
-        $dt = new DateTime();
+        $dt = new \DateTime();
         return $dt->setTimestamp($this->created) ?? $dt->setTimestamp(filectime($this->file)); //on windows ctime is creation time
     }
 
