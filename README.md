@@ -1,1 +1,3 @@
 Run example: `php example.php`
+
+I'm not sure if some functions were created as they were intended to be... 

@@ -47,6 +47,4 @@ class FileSystemInterfaceTest extends TestCase
         $this->assertTrue(file_exists($dir->getPath()) && is_dir($dir->getPath()));
         $this->assertTrue($class->deleteDirectory($dir));
     }
-
-    // public function test_it_can_revert_back_to_original_dir //temp, will remove later
 }
